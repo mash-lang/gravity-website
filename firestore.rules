@@ -7,7 +7,7 @@ service cloud.firestore {
 
     function isAdmin() {
       return request.auth != null
-        && request.auth.token.email in ['admin@yourdomain.com'];
+        && request.auth.token.email in ['gravity@admin.com'];
     }
 
     // Anyone can view projects and team members; only admins can change them.
