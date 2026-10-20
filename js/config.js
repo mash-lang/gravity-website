@@ -31,7 +31,7 @@ window.GRAVITY_CONFIG = {
         Paste the config object from Firebase console -> Project settings -> Your apps -> Web app.
         Leave apiKey empty and the site shows the built-in content from js/content.js. */
   firebase: {
-    apiKey: "AIzaSyB5svOa22ZFa0excZiDiCvc1m3APzURpug",
+    apiKey: "",
     authDomain: "gravity-studios-a41ab.firebaseapp.com",
     projectId: "gravity-studios-a41ab",
     storageBucket: "gravity-studios-a41ab.firebasestorage.app",
