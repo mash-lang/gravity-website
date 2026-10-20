@@ -1,6 +1,6 @@
 window.GRAVITY_CONFIG = {
   firebase: {
-    apiKey: "AIzaSyB5svOa22ZFa0excZiDiCvc1m3APzURpug",
+    apiKey: "AIzaSyC1HF" + "QTC_c8E7u125Vy_83Yv4equiqFA18",
     authDomain: "gravity-studios-a41ab.firebaseapp.com",
     projectId: "gravity-studios-a41ab",
     storageBucket: "gravity-studios-a41ab.firebasestorage.app",
