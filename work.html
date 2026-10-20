@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Previous projects — Gravity</title>
+<meta name="description" content="Recent graphic design, video editing and broadcasting projects by Gravity.">
+<meta name="theme-color" content="#07060C">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="work">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="g-mark" viewBox="0 0 986 1334">
+      <path d="M0,175 A175,175 0 0 1 175,0 L960,0 Q986,0 986,26 L986,450 L642,445 L642,344 L373,344 Q343,344 343,374 L343,779 A343,342 0 0 1 0,437 Z"/>
+      <path d="M450,554 L960,554 Q986,554 986,580 L986,1158 A176,176 0 0 1 810,1334 L26,1334 Q0,1334 0,1308 L0,884 L343,888 L343,989 L612,989 Q642,989 642,959 L642,797 L450,797 Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="nav" id="nav">
+  <span class="progress" id="progress" aria-hidden="true"></span>
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html" aria-label="Gravity home"><svg viewBox="0 0 986 1334" fill="#FF2D55" aria-hidden="true"><use href="#g-mark"/></svg>Gravity</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="work.html" aria-current="page">Work</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="contact.html?tab=message">Contact</a></li>
+    </ul>
+    <a class="btn btn-red nav-cta" href="contact.html">Place an order</a>
+    <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="page-head">
+    <svg class="orbit-deco" viewBox="0 0 600 400" aria-hidden="true">
+      <g transform="rotate(-16 300 200)">
+        <ellipse cx="300" cy="200" rx="260" ry="72"/><ellipse cx="300" cy="200" rx="185" ry="50"/>
+        <circle class="dot" r="6"><animateMotion dur="16s" repeatCount="indefinite" path="M40,200 a260,72 0 1,0 520,0 a260,72 0 1,0 -520,0"/></circle>
+        <circle class="dust" r="3"><animateMotion dur="11s" begin="-4s" repeatCount="indefinite" path="M115,200 a185,50 0 1,0 370,0 a185,50 0 1,0 -370,0"/></circle>
+        <circle class="dot" r="3.5"><animateMotion dur="11s" begin="-8s" repeatCount="indefinite" path="M115,200 a185,50 0 1,0 370,0 a185,50 0 1,0 -370,0"/></circle>
+      </g>
+      <use href="#g-mark" class="mk" x="266" y="154" width="68" height="92"/>
+    </svg>
+    <div class="wrap">
+      <h1 class="display">Previous projects</h1>
+      <p class="lede">A selection of recent jobs across all three services. Open any screen to see what the brief was and what we delivered.</p>
+    </div>
+  </section>
+
+  <section class="sec" aria-label="Projects" style="padding-top:0">
+    <div class="wrap">
+      <div class="filters" role="group" aria-label="Filter projects">
+        <button type="button" aria-pressed="true" data-filter="all">All</button>
+        <button type="button" aria-pressed="false" data-filter="Graphic design">Graphic design</button>
+        <button type="button" aria-pressed="false" data-filter="Video editing">Video editing</button>
+        <button type="button" aria-pressed="false" data-filter="Broadcasting">Broadcasting</button>
+      </div>
+      <div class="wall" id="wall"><p class="loading">Loading projects…</p></div>
+    </div>
+  </section>
+
+  <section class="sec cta-block" aria-labelledby="cta-h">
+    <div class="wrap">
+      <h2 class="display" id="cta-h">Want something like this?</h2>
+      <div class="cta-row"><a class="btn btn-red" href="contact.html">Place an order</a></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <p class="display big" id="big-word">Gravity</p>
+      </div>
+      <div>
+        <h4>Studio</h4>
+        <ul>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="work.html">Previous projects</a></li>
+          <li><a href="team.html">Our team</a></li>
+          <li><a href="contact.html">Place an order</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Gravity. All rights reserved.</span>
+      <span>Graphic design, video editing and broadcasting.</span>
+    </div>
+  </div>
+</footer>
+<dialog id="project-dlg" aria-labelledby="dlg-title">
+  <button class="close" type="button" aria-label="Close" data-close>×</button>
+  <div class="dlg-art" id="dlg-art"></div>
+  <div class="dlg-body">
+    <div>
+      <h3 class="display" id="dlg-title"></h3>
+      <p id="dlg-desc"></p>
+    </div>
+    <div>
+      <dl id="dlg-meta"></dl>
+      <ul id="dlg-did"></ul>
+      <button class="btn btn-red" type="button" id="dlg-order">Order something similar</button>
+    </div>
+  </div>
+</dialog>
+<script src="js/config.js"></script>
+<script src="js/content.js"></script>
+<script src="js/store.js"></script>
+
+<script src="js/site.js"></script>
+</body>
+</html>

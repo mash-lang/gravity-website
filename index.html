@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gravity — Graphic design, video editing &amp; broadcasting</title>
+<meta name="description" content="Gravity is a creative studio for graphic design, video editing and live broadcasting.">
+<meta name="theme-color" content="#07060C">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="index">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="g-mark" viewBox="0 0 986 1334">
+      <path d="M0,175 A175,175 0 0 1 175,0 L960,0 Q986,0 986,26 L986,450 L642,445 L642,344 L373,344 Q343,344 343,374 L343,779 A343,342 0 0 1 0,437 Z"/>
+      <path d="M450,554 L960,554 Q986,554 986,580 L986,1158 A176,176 0 0 1 810,1334 L26,1334 Q0,1334 0,1308 L0,884 L343,888 L343,989 L612,989 Q642,989 642,959 L642,797 L450,797 Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="nav" id="nav">
+  <span class="progress" id="progress" aria-hidden="true"></span>
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html" aria-label="Gravity home"><svg viewBox="0 0 986 1334" fill="#FF2D55" aria-hidden="true"><use href="#g-mark"/></svg>Gravity</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="contact.html?tab=message">Contact</a></li>
+    </ul>
+    <a class="btn btn-red nav-cta" href="contact.html">Place an order</a>
+    <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-label="Introduction">
+    <canvas id="field-back" aria-hidden="true"></canvas>
+    <div class="mono-stage" aria-hidden="true"><div class="mono" id="mono"></div></div>
+    <canvas id="field-front" aria-hidden="true"></canvas>
+    <div class="wrap hero-copy">
+      <h1 class="display">Creative work with its own pull.</h1>
+      <p>Gravity is a studio for graphic design, video editing and live broadcasting. Tell us what you need and we’ll get it moving.</p>
+      <div class="ctas">
+        <a class="btn btn-red" href="contact.html">Place an order</a>
+        <a class="btn btn-ghost" href="work.html">See our work</a>
+      </div>
+      <div class="hero-foot">
+        <ul>
+          <li><a href="services.html#svc-design">Graphic design</a></li>
+          <li><a href="services.html#svc-video">Video editing</a></li>
+          <li><a href="services.html#svc-broadcast">Broadcasting</a></li>
+        </ul>
+        <span class="hint">Move your cursor to bend the field</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="band" aria-hidden="true"><div class="band-track" id="band-track"></div></div>
+
+  <section class="sec" aria-labelledby="what-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="display" id="what-h">Three crafts, one crew.</h2>
+        <p class="lede">Most projects need more than one of these. Because the same team does all three, your brand looks the same on a poster, in an edit and on a live stream.</p>
+      </div>
+      <div>
+        <a class="svc-mini" href="services.html#svc-design"><h3 class="display">Graphic design</h3><p>Identities, social content, print and packaging.</p><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+        <a class="svc-mini" href="services.html#svc-video"><h3 class="display">Video editing</h3><p>Cutting, color and sound for ads, reels and long-form.</p><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+        <a class="svc-mini" href="services.html#svc-broadcast"><h3 class="display">Broadcasting</h3><p>Multi-camera live streams and event coverage.</p><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec work" aria-labelledby="sel-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="display" id="sel-h">Selected work</h2>
+        <div>
+          <p class="lede">A few recent projects. Open any screen for the brief and what we delivered.</p>
+          <a class="btn btn-ghost more" href="work.html">See all projects</a>
+        </div>
+      </div>
+      <div class="wall" id="wall" data-limit="3"><p class="loading">Loading projects…</p></div>
+    </div>
+  </section>
+
+  <section class="sec cta-block" aria-labelledby="cta-h">
+    <div class="wrap">
+      <h2 class="display" id="cta-h">Got something to make?</h2>
+      <p class="lede">Place an order directly, or tell us what you’re planning and we’ll suggest the right mix of design, edit and broadcast.</p>
+      <div class="cta-row">
+        <a class="btn btn-red" href="contact.html">Place an order</a>
+        <a class="btn btn-ghost" href="team.html">Meet the team</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <p class="display big" id="big-word">Gravity</p>
+      </div>
+      <div>
+        <h4>Studio</h4>
+        <ul>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="work.html">Previous projects</a></li>
+          <li><a href="team.html">Our team</a></li>
+          <li><a href="contact.html">Place an order</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Gravity. All rights reserved.</span>
+      <span>Graphic design, video editing and broadcasting.</span>
+    </div>
+  </div>
+</footer>
+<dialog id="project-dlg" aria-labelledby="dlg-title">
+  <button class="close" type="button" aria-label="Close" data-close>×</button>
+  <div class="dlg-art" id="dlg-art"></div>
+  <div class="dlg-body">
+    <div>
+      <h3 class="display" id="dlg-title"></h3>
+      <p id="dlg-desc"></p>
+    </div>
+    <div>
+      <dl id="dlg-meta"></dl>
+      <ul id="dlg-did"></ul>
+      <button class="btn btn-red" type="button" id="dlg-order">Order something similar</button>
+    </div>
+  </div>
+</dialog>
+<script src="js/config.js"></script>
+<script src="js/content.js"></script>
+<script src="js/store.js"></script>
+<script src="js/hero.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

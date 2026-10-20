@@ -1,0 +1,45 @@
+rules_version = '2';
+
+// Paste this into Firebase console → Firestore Database → Rules, then click Publish.
+// Change the email below to your admin email (add more admins separated by commas).
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email in ['admin@yourdomain.com'];
+    }
+
+    // Anyone can view projects and team members; only admins can change them.
+    match /projects/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /team/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Visitors can send an order or message, but can't read anyone else's.
+    match /orders/{id} {
+      allow create: if request.resource.data.keys().hasOnly([
+            'kind', 'ref', 'status', 'createdAt',
+            'service', 'package', 'details', 'deadline', 'budget', 'company', 'phone',
+            'name', 'email', 'subject', 'message'])
+        && request.resource.data.kind in ['order', 'message']
+        && request.resource.data.status == 'new'
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 200
+        && request.resource.data.email is string && request.resource.data.email.size() <= 200
+        && (!('details' in request.resource.data) || request.resource.data.details.size() <= 5000)
+        && (!('message' in request.resource.data) || request.resource.data.message.size() <= 5000);
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Everything else is closed.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
