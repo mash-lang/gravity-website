@@ -31,7 +31,7 @@ const authMessage = code => ({
   "auth/too-many-requests": "Too many attempts. Wait a few minutes, then try again.",
   "auth/network-request-failed": "Couldn’t reach Firebase. Check your connection and try again.",
   "auth/user-disabled": "This account has been turned off in Firebase."
-  "auth/api-key-not-valid.-please-pass-a-valid-api-key.": "The Firebase API key in js/config.js isn’t valid. Check it, then hard-refresh this page.",
+  //"auth/api-key-not-valid.-please-pass-a-valid-api-key.": "The Firebase API key in js/config.js isn’t valid. Check it, then hard-refresh this page.",
 }[code] || "Sign-in didn’t work. Try again.");
 
 $("#login-form").addEventListener("submit", async e => {
