@@ -125,7 +125,9 @@ const initials = n => String(n || "?").trim().split(/\s+/).map(w => w[0]).slice(
 
 /* ---------- generated artwork for projects without an image ---------- */
 /* ===================== Project artwork (placeholders — swap for real images) ===================== */
+let artN = 0;
 function art(p, w=400, h=300){
+  const gid = `sky${p.id}-${++artN}`;
   const r = rng(p.seed), [a,b,c,d] = p.pal;
   let s = `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(p.title)} preview">`;
   if (p.cat === "Graphic design"){
@@ -137,8 +139,8 @@ function art(p, w=400, h=300){
     for (let i=0;i<4;i++) s += `<rect x="${w*.12}" y="${h*(.7+i*.05)}" width="${w*(.12 + r()*.2)}" height="5" fill="${a}" opacity=".9"/>`;
     s += `<g fill="${b}">${Array.from({length:12},(_,i)=>`<circle cx="${w*.62 + (i%4)*14}" cy="${h*.12 + Math.floor(i/4)*14}" r="3"/>`).join("")}</g>`;
   } else if (p.cat === "Video editing"){
-    s += `<defs><linearGradient id="sky${p.id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs>`;
-    s += `<rect width="${w}" height="${h}" fill="url(#sky${p.id})"/>`;
+    s += `<defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs>`;
+    s += `<rect width="${w}" height="${h}" fill="url(#${gid})"/>`;
     s += `<circle cx="${w*(.3+r()*.4)}" cy="${h*.48}" r="${38+r()*30}" fill="${c}" opacity=".95">${anim(`<animate attributeName="cy" values="${h*.4};${h*.56};${h*.4}" dur="${10+r()*4}s" repeatCount="indefinite"/>`)}</circle>`;
     let path = `M0 ${h*.62}`; for (let x=0;x<=w;x+=40) path += ` L${x} ${h*(.5 + r()*.16)}`; path += ` L${w} ${h} L0 ${h}Z`;
     s += `<path d="${path}" fill="${a}" opacity=".85"/>`;

@@ -646,9 +646,16 @@ function compressLogo(file){
     img.onload = () => {
       const s = Math.min(1, 600 / Math.max(img.naturalWidth || 600, img.naturalHeight || 600));
       const c = document.createElement("canvas"); c.width = Math.max(1, Math.round((img.naturalWidth || 600) * s)); c.height = Math.max(1, Math.round((img.naturalHeight || 300) * s));
-      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
-      let out = c.toDataURL("image/webp", .9);
-      if (!out.startsWith("data:image/webp")) out = c.toDataURL("image/png");
+      const cx = c.getContext("2d", { willReadFrequently: true }); cx.drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
+      // crop away empty transparent borders so the logo fills its box on the site
+      let cut = c;
+      try {
+        const d = cx.getImageData(0, 0, c.width, c.height).data; let t = c.height, l = c.width, b = -1, r = -1;
+        for (let y = 0; y < c.height; y++) for (let x = 0; x < c.width; x++) if (d[(y * c.width + x) * 4 + 3] > 12){ if (y < t) t = y; if (y > b) b = y; if (x < l) l = x; if (x > r) r = x; }
+        if (b >= 0 && (t > 1 || l > 1 || b < c.height - 2 || r < c.width - 2)){ cut = document.createElement("canvas"); cut.width = r - l + 1; cut.height = b - t + 1; cut.getContext("2d").drawImage(c, l, t, cut.width, cut.height, 0, 0, cut.width, cut.height); }
+      } catch {}
+      let out = cut.toDataURL("image/webp", .9);
+      if (!out.startsWith("data:image/webp")) out = cut.toDataURL("image/png");
       out.length > 600000 ? rej(new Error("too_big")) : res(out);
     };
     img.onerror = () => { URL.revokeObjectURL(url); rej(new Error("bad_image")); };
