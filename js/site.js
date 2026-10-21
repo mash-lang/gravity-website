@@ -29,6 +29,9 @@ const onTop = () => {
   toTop.style.setProperty("--off", (ringLen * (1 - p)).toFixed(1));
 };
 addEventListener("scroll", onTop, { passive: true }); onTop();
+// keep the floating buttons out of the way while typing (they can cover inputs on phones)
+document.addEventListener("focusin", e => { if (e.target.matches("input, textarea, select")) document.body.classList.add("typing"); });
+document.addEventListener("focusout", e => { if (e.target.matches("input, textarea, select")) setTimeout(() => { if (!document.activeElement.matches("input, textarea, select")) document.body.classList.remove("typing"); }, 50); });
 // quick WhatsApp chat button
 const WAcfg = (window.GRAVITY_CONFIG || {}).whatsapp;
 const WA = String(WAcfg === undefined ? "8801736981194" : WAcfg).replace(/\D/g, "");
@@ -129,7 +132,7 @@ const ICONS = {
 function renderTeam(){
   const faces = $("#faces"), crew = $("#crew");
   if (faces){
-    faces.innerHTML = team.slice(0, 6).map((m, i) => `<button type="button" class="face rv" data-mid="${esc(m.id)}" data-cursor="Profile" aria-label="Open profile: ${esc(m.name)}, ${esc(m.role)}" style="--dl:${i * 90}ms"><span class="ph">${portrait(m, i)}</span><b>${esc(m.name)}</b><span>${esc(m.role)}</span></button>`).join("") || `<p class="empty">Team profiles are coming soon.</p>`;
+    faces.innerHTML = team.slice(0, 6).map((m, i) => `<button type="button" class="face rv" data-mid="${esc(m.id)}" data-cursor="Profile" aria-label="Open profile: ${esc(m.name)}, ${esc(m.role)}" style="--dl:${i * 90}ms"><span class="ph">${portrait(m, i)}<span class="fh" aria-hidden="true">View profile ${ICONS.arrowR}</span></span><b>${esc(m.name)}</b><span>${esc(m.role)}</span></button>`).join("") || `<p class="empty">Team profiles are coming soon.</p>`;
     motion.register(faces);
   }
   if (crew){
@@ -225,13 +228,13 @@ document.addEventListener("keydown", e => {
 // cards tilt toward the cursor with a moving glare
 if (finePointer && !reduceMotion){
   document.addEventListener("pointermove", e => {
-    const c = e.target.closest(".mate"); if (!c) return;
+    const c = e.target.closest(".mate, .face"); if (!c) return;
     const r = c.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
     c.style.setProperty("--ry", ((px - .5) * 14).toFixed(2) + "deg"); c.style.setProperty("--rx", ((.5 - py) * 10).toFixed(2) + "deg");
     c.style.setProperty("--gx", (px * 100).toFixed(1) + "%"); c.style.setProperty("--gy", (py * 100).toFixed(1) + "%");
   });
   document.addEventListener("pointerout", e => {
-    const c = e.target.closest(".mate"); if (!c || c.contains(e.relatedTarget)) return;
+    const c = e.target.closest(".mate, .face"); if (!c || c.contains(e.relatedTarget)) return;
     c.style.setProperty("--rx", "0deg"); c.style.setProperty("--ry", "0deg");
   });
 }
@@ -391,6 +394,32 @@ if (pdlg){
 }
 
 /* ===================== Clients: logo rails ===================== */
+// Many logo files have wide empty borders; crop to the visible part so all logos look the same size.
+const trimJobs = {};
+function trimLogo(img){
+  const src = img.getAttribute("src"); if (!src || src.startsWith("data:image/png;trim")) return;
+  if (!trimJobs[src]) trimJobs[src] = new Promise(done => {
+    const probe = new Image();
+    probe.onload = () => {
+      try {
+        const w = probe.naturalWidth, h = probe.naturalHeight; if (!w || !h) return done(null);
+        const s = Math.min(1, 400 / Math.max(w, h)), cw = Math.max(1, Math.round(w * s)), ch = Math.max(1, Math.round(h * s));
+        const c = document.createElement("canvas"); c.width = cw; c.height = ch;
+        const x = c.getContext("2d", { willReadFrequently: true }); x.drawImage(probe, 0, 0, cw, ch);
+        const d = x.getImageData(0, 0, cw, ch).data;
+        let t = ch, l = cw, b = -1, r = -1;
+        for (let y = 0; y < ch; y++) for (let xx = 0; xx < cw; xx++) if (d[(y * cw + xx) * 4 + 3] > 12){ if (y < t) t = y; if (y > b) b = y; if (xx < l) l = xx; if (xx > r) r = xx; }
+        if (b < 0 || (t <= 1 && l <= 1 && b >= ch - 2 && r >= cw - 2)) return done(null);
+        const o = document.createElement("canvas"); o.width = r - l + 1; o.height = b - t + 1;
+        o.getContext("2d").drawImage(c, l, t, o.width, o.height, 0, 0, o.width, o.height);
+        done(o.toDataURL("image/png"));
+      } catch { done(null); }
+    };
+    probe.onerror = () => done(null);
+    probe.src = src;
+  });
+  trimJobs[src].then(url => { if (url && img.getAttribute("src") === src) img.src = url; });
+}
 async function renderClients(){
   const sec = $("#clients"); if (!sec) return;
   const clients = await Store.clients();
@@ -406,6 +435,7 @@ async function renderClients(){
       return c.url ? `<a ${attrs} href="${esc(c.url)}" target="_blank" rel="noopener" data-cursor="Visit">${inner}</a>` : `<span ${attrs}>${inner}</span>`;
     };
     track.innerHTML = list.map(c => item(c, false)).join("") + list.map(c => item(c, true)).join("");
+    $$("img", track).forEach(trimLogo);
     motion.marquee(track);
   });
   motion.register(sec);
