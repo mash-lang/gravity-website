@@ -26,6 +26,15 @@
 
 <div class="admin" id="admin">
 
+  <!-- animated backdrop behind the sign-in card -->
+  <div class="login-bg" aria-hidden="true">
+    <svg viewBox="0 0 800 800">
+      <g class="orb o1"><ellipse cx="400" cy="400" rx="380" ry="120"/><circle class="sat" cx="780" cy="400" r="6"/></g>
+      <g class="orb o2"><ellipse cx="400" cy="400" rx="290" ry="90"/><circle class="sat" cx="110" cy="400" r="4"/></g>
+      <g class="orb o3"><ellipse cx="400" cy="400" rx="200" ry="62"/><circle class="sat" cx="600" cy="400" r="3"/></g>
+    </svg>
+  </div>
+
   <!-- shown when js/config.js has no Firebase settings yet -->
   <div class="admin-login" id="admin-setup" hidden>
     <div class="admin-card setup-card">
@@ -45,9 +54,9 @@
 
   <div class="admin-login" id="admin-login" hidden>
     <form class="admin-card" id="login-form" novalidate>
-      <span class="brand"><svg viewBox="0 0 986 1334" fill="#FF2D55" aria-hidden="true"><use href="#g-mark"/></svg>Gravity</span>
-      <h2 class="display">Admin sign in</h2>
-      <p class="admin-sub">Use the admin email and password set up in Firebase.</p>
+      <span class="brand"><svg viewBox="0 0 986 1334" fill="#FF2D55" aria-hidden="true"><use href="#g-mark"/></svg>Gravity <small>Studio admin</small></span>
+      <h2 class="display">Welcome back</h2>
+      <p class="admin-sub">Sign in to manage projects, the team and incoming orders.</p>
       <div class="field"><label for="ad-email">Admin email</label><input type="email" id="ad-email" autocomplete="username" autocapitalize="off" spellcheck="false"></div>
       <div class="field"><label for="ad-pw">Password</label><input type="password" id="ad-pw" autocomplete="current-password"></div>
       <p class="err-msg" id="login-err" aria-live="polite"></p>
@@ -60,8 +69,10 @@
       <div class="wrap">
         <span class="brand"><svg viewBox="0 0 986 1334" fill="#FF2D55" aria-hidden="true"><use href="#g-mark"/></svg>Gravity <small>Admin</small></span>
         <nav class="admin-tabs" role="tablist" aria-label="Admin sections">
-          <button type="button" role="tab" data-atab="projects">Projects</button>
-          <button type="button" role="tab" data-atab="team">Team</button>
+          <button type="button" role="tab" data-atab="overview">Overview</button>
+          <button type="button" role="tab" data-atab="projects">Projects<span class="tab-n" id="n-projects"></span></button>
+          <button type="button" role="tab" data-atab="team">Team<span class="tab-n" id="n-team"></span></button>
+          <button type="button" role="tab" data-atab="clients">Clients<span class="tab-n" id="n-clients"></span></button>
           <button type="button" role="tab" data-atab="orders">Orders<span class="tab-count" id="new-count" hidden></span></button>
           <button type="button" role="tab" data-atab="account">Account</button>
         </nav>
@@ -71,7 +82,7 @@
         </div>
       </div>
     </header>
-    <main class="admin-main"><div class="wrap" id="admin-view"></div></main>
+    <main class="admin-main"><div class="wrap" id="admin-view"><div class="skeleton"><span></span><span></span><span></span><span></span></div></div></main>
   </div>
 
   <div class="admin-sheet" id="admin-sheet" hidden>

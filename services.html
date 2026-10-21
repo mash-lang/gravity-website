@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body data-page="services">
+<div class="pt" aria-hidden="true"><svg viewBox="0 0 986 1334"><use href="#g-mark"/></svg></div>
+<canvas id="bg-fx" aria-hidden="true"></canvas>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -51,69 +53,54 @@
     </svg>
     <div class="wrap">
       <h1 class="display">What we do</h1>
-      <p class="lede">Graphic design, video editing and live broadcasting. Book one, or combine them so everything you put out looks like it came from the same place.</p>
+      <p class="lede">Design, edit, broadcast. One crew for all three.</p>
     </div>
   </section>
 
-  <div class="band" aria-hidden="true"><div class="band-track" id="band-track"></div></div>
+  <div class="band-wrap"><div class="band" aria-hidden="true"><div class="band-track" id="band-track"></div></div></div>
 
-  <section class="sec" aria-label="Services">
+  <section class="sec" aria-label="Services" style="padding-top:clamp(2rem,5vw,3rem)">
     <div class="wrap">
-      <article class="svc" id="svc-design">
-        <h3 class="display">Graphic design</h3>
-        <p class="desc">Identities, social content, print and packaging that hold up at every size, from a phone screen to a billboard.</p>
+      <article class="svc2" id="svc-design">
+        <div class="svc2-media ri" data-cat="Graphic design"></div>
         <div>
-          <ul>
-            <li>Logo and brand identity systems</li>
-            <li>Social media kits and campaigns</li>
-            <li>Posters, flyers and print</li>
-            <li>Packaging and merchandise</li>
-          </ul>
-          <p class="meta">Typical turnaround <strong>3–7 days</strong></p>
-          <a class="btn btn-ghost" href="contact.html?service=Graphic%20design">Order graphic design</a>
+          <h2 class="display">Graphic design</h2>
+          <p class="one">Identities, social and print that hold up at every size.</p>
+          <ul class="chips"><li>Logo &amp; identity</li><li>Social kits</li><li>Posters &amp; print</li><li>Packaging</li></ul>
+          <div class="meta2"><a class="btn btn-red" href="contact.html?service=Graphic%20design">Order design</a><span>Usually <strong>3–7 days</strong></span></div>
         </div>
       </article>
-
-      <article class="svc" id="svc-video">
-        <h3 class="display">Video editing</h3>
-        <p class="desc">Cutting, color and sound for ads, reels, YouTube and long-form, delivered in every format you post to.</p>
+      <article class="svc2" id="svc-video">
+        <div class="svc2-media ri" data-cat="Video editing"></div>
         <div>
-          <ul>
-            <li>Short-form reels and ads</li>
-            <li>YouTube and documentary edits</li>
-            <li>Color grading and sound mix</li>
-            <li>Motion graphics and titles</li>
-          </ul>
-          <p class="meta">Typical turnaround <strong>2–10 days</strong></p>
-          <a class="btn btn-ghost" href="contact.html?service=Video%20editing">Order video editing</a>
+          <h2 class="display">Video editing</h2>
+          <p class="one">Cutting, color and sound for every format you post to.</p>
+          <ul class="chips"><li>Reels &amp; ads</li><li>YouTube</li><li>Color grading</li><li>Motion graphics</li></ul>
+          <div class="meta2"><a class="btn btn-red" href="contact.html?service=Video%20editing">Order an edit</a><span>Usually <strong>2–10 days</strong></span></div>
         </div>
       </article>
-
-      <article class="svc" id="svc-broadcast">
-        <h3 class="display">Broadcasting</h3>
-        <p class="desc">Multi-camera live streams and event coverage, handled from setup and rehearsal to the last frame on air.</p>
+      <article class="svc2" id="svc-broadcast">
+        <div class="svc2-media ri" data-cat="Broadcasting"></div>
         <div>
-          <ul>
-            <li>Live streaming to YouTube, Facebook and more</li>
-            <li>Multi-camera production and switching</li>
-            <li>On-screen graphics and lower thirds</li>
-            <li>Event recording and highlight reels</li>
-          </ul>
-          <p class="meta">Booked <strong>per event</strong></p>
-          <a class="btn btn-ghost" href="contact.html?service=Broadcasting">Book a broadcast</a>
+          <h2 class="display">Broadcasting</h2>
+          <p class="one">Multi-camera live streams, from setup to sign-off.</p>
+          <ul class="chips"><li>Live streaming</li><li>Multi-camera</li><li>Lower thirds</li><li>Event highlights</li></ul>
+          <div class="meta2"><a class="btn btn-red" href="contact.html?service=Broadcasting">Book a broadcast</a><span>Booked <strong>per event</strong></span></div>
         </div>
       </article>
     </div>
-    </div>
+  </section>
+
+  <section class="reel-sec" aria-label="Recent work">
+    <div class="reel"><div class="marquee-track" data-reel="a" data-speed="0.5" data-dir="-1"></div></div>
   </section>
 
   <section class="sec cta-block" aria-labelledby="cta-h">
     <div class="wrap">
       <h2 class="display" id="cta-h">Not sure which you need?</h2>
-      <p class="lede">Send a short message about your project and we’ll recommend a package.</p>
       <div class="cta-row">
         <a class="btn btn-red" href="contact.html?tab=message">Send a message</a>
-        <a class="btn btn-ghost" href="work.html">See previous projects</a>
+        <a class="btn btn-ghost" href="work.html">See projects</a>
       </div>
     </div>
   </section>
@@ -150,11 +137,15 @@
     </div>
   </div>
 </footer>
-
+<dialog id="project-dlg" class="pdlg" aria-labelledby="pd-title">
+  <button class="close" type="button" aria-label="Close" data-close>×</button>
+  <div class="pd-in"></div>
+</dialog>
 <script src="js/config.js"></script>
 <script src="js/content.js"></script>
 <script src="js/store.js"></script>
 
+<script src="js/bg.js"></script>
 <script src="js/site.js"></script>
 </body>
 </html>

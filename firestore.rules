@@ -7,11 +7,23 @@ service cloud.firestore {
 
     function isAdmin() {
       return request.auth != null
-        && request.auth.token.email in ['gravity@admin.com'];
+        && request.auth.token.email in ['gravity@admin.com', 'admin@gravity.com'];
     }
 
     // Anyone can view projects and team members; only admins can change them.
     match /projects/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+
+      // extra pictures and videos for each project's gallery
+      match /media/{mediaId} {
+        allow read: if true;
+        allow write: if isAdmin();
+      }
+    }
+
+    // client logos shown on the home page
+    match /clients/{id} {
       allow read: if true;
       allow write: if isAdmin();
     }

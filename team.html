@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body data-page="team">
+<div class="pt" aria-hidden="true"><svg viewBox="0 0 986 1334"><use href="#g-mark"/></svg></div>
+<canvas id="bg-fx" aria-hidden="true"></canvas>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -50,15 +52,19 @@
       <use href="#g-mark" class="mk" x="266" y="154" width="68" height="92"/>
     </svg>
     <div class="wrap">
-      <h1 class="display">The people on your project</h1>
-      <p class="lede">A small team on purpose. You talk to the people doing the work, not a chain of account managers.</p>
+      <h1 class="display">The crew</h1>
+      <p class="lede">Tap anyone to see their story.</p>
     </div>
   </section>
 
   <section class="sec" aria-label="Team members" style="padding-top:0">
     <div class="wrap">
-      <div class="team-grid" id="team-grid"><p class="loading">Loading the team…</p></div>
+      <div class="crew" id="crew"><p class="loading">Loading the team…</p></div>
     </div>
+  </section>
+
+  <section class="reel-sec" aria-label="Recent work">
+    <div class="reel"><div class="marquee-track" data-reel="a" data-speed="0.5" data-dir="1"></div></div>
   </section>
 
   <section class="sec cta-block" aria-labelledby="cta-h">
@@ -100,11 +106,19 @@
     </div>
   </div>
 </footer>
-
+<dialog id="project-dlg" class="pdlg" aria-labelledby="pd-title">
+  <button class="close" type="button" aria-label="Close" data-close>×</button>
+  <div class="pd-in"></div>
+</dialog>
+<dialog id="member-dlg" class="mdlg" aria-labelledby="md-name">
+  <button class="close" type="button" aria-label="Close" data-close>×</button>
+  <div class="md-in"></div>
+</dialog>
 <script src="js/config.js"></script>
 <script src="js/content.js"></script>
 <script src="js/store.js"></script>
 
+<script src="js/bg.js"></script>
 <script src="js/site.js"></script>
 </body>
 </html>

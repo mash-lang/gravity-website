@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body data-page="work">
+<div class="pt" aria-hidden="true"><svg viewBox="0 0 986 1334"><use href="#g-mark"/></svg></div>
+<canvas id="bg-fx" aria-hidden="true"></canvas>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -51,7 +53,7 @@
     </svg>
     <div class="wrap">
       <h1 class="display">Previous projects</h1>
-      <p class="lede">A selection of recent jobs across all three services. Open any screen to see what the brief was and what we delivered.</p>
+      <p class="lede">Open any project for the full story.</p>
     </div>
   </section>
 
@@ -63,7 +65,7 @@
         <button type="button" aria-pressed="false" data-filter="Video editing">Video editing</button>
         <button type="button" aria-pressed="false" data-filter="Broadcasting">Broadcasting</button>
       </div>
-      <div class="wall" id="wall"><p class="loading">Loading projects…</p></div>
+      <div class="bento" id="bento"><p class="loading">Loading projects…</p></div>
     </div>
   </section>
 
@@ -106,25 +108,15 @@
     </div>
   </div>
 </footer>
-<dialog id="project-dlg" aria-labelledby="dlg-title">
+<dialog id="project-dlg" class="pdlg" aria-labelledby="pd-title">
   <button class="close" type="button" aria-label="Close" data-close>×</button>
-  <div class="dlg-art" id="dlg-art"></div>
-  <div class="dlg-body">
-    <div>
-      <h3 class="display" id="dlg-title"></h3>
-      <p id="dlg-desc"></p>
-    </div>
-    <div>
-      <dl id="dlg-meta"></dl>
-      <ul id="dlg-did"></ul>
-      <button class="btn btn-red" type="button" id="dlg-order">Order something similar</button>
-    </div>
-  </div>
+  <div class="pd-in"></div>
 </dialog>
 <script src="js/config.js"></script>
 <script src="js/content.js"></script>
 <script src="js/store.js"></script>
 
+<script src="js/bg.js"></script>
 <script src="js/site.js"></script>
 </body>
 </html>

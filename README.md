@@ -78,3 +78,26 @@ The Firebase `apiKey` in `config.js` is meant to be public; it identifies your p
 
 Open the folder with a local server (for example `python3 -m http.server`) and visit `http://localhost:8000`.
 Double-clicking the HTML files also works for the public pages; sign-in needs a real web address.
+
+## Getting the most out of the visuals
+
+The site is image-led: projects appear in moving reels, image slideshows on each service, and a bento grid.
+
+- **Upload a cover image** for every project in the dashboard. Projects without one show generated artwork.
+- **Add a YouTube link** to a video project and its YouTube thumbnail is used automatically when there’s no cover image.
+- **Add a direct .mp4 link** (for example from your own hosting) and the tile plays a silent looping preview.
+- **Upload team photos** so the crew section shows faces instead of initials.
+- Each service card and the services page cycle through that service’s project images, so the more projects you add, the livelier they get.
+
+## Project galleries and clients (added later)
+
+These need the updated `firestore.rules`. If you set up Firebase before this update, paste the new rules in again
+(Firestore Database → Rules → replace everything → Publish). Without them, saving a gallery or a client says
+“You don’t have permission”.
+
+- **Gallery:** in a project’s editor, drop several pictures at once or paste YouTube/.mp4 links. Drag to reorder, add captions,
+  and pick the slideshow transition (Fade, Slide, Zoom or Slow zoom). Each picture is stored as its own record, so a project
+  can hold up to 12.
+- **Featured:** tick ★ on a project (in the list or the editor) to put it first on the home page and in the moving reels.
+- **Clients:** the Clients tab manages the logo strip on the home page. Transparent PNG logos look best.
+- **Shortcuts:** `/` search · `N` add new · `Ctrl+S` save · `Esc` close. Deleting shows an **Undo** button for 6 seconds.
