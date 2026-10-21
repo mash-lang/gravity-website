@@ -39,6 +39,19 @@ window.Store = (function(){
       catch (e) { console.warn("Team: using built-in content.", e); }
       return fallbackTeam();
     },
+    /* extra pictures and videos for one project, in order */
+    async media(projectId){
+      try {
+        const fb = await ready(); if (!fb) return [];
+        const s = await fb.firestore().collection("projects").doc(projectId).collection("media").orderBy("order").get();
+        return s.docs.map(d => normMedia(d.id, d.data())).filter(m => m.src || m.url);
+      } catch (e) { console.warn("Gallery not loaded.", e); return []; }
+    },
+    async clients(){
+      try { const r = await list("clients"); if (r) return r.map(d => normClient(d.id, d.data)); }
+      catch (e) { console.warn("Clients: using built-in names.", e); }
+      return FALLBACK_CLIENTS;
+    },
     /* Saves an order/message to Firestore (shown in the admin dashboard) and/or sends it to Formspree. */
     async submit(kind, data, ref){
       let ok = false;

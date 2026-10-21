@@ -21,12 +21,15 @@ const PALETTES = [
    to a project, or  photo: "images/name.jpg",  to a team member. */
 const FALLBACK_PROJECTS = [
   {id:"northwind", title:"Northwind Coffee", cat:"Graphic design", client:"Northwind Coffee Co.", year:"2026",
+   services:["Logo design","Packaging","Menu design","Social kit"], duration:"6 weeks", featured:true,
    desc:"A full identity for a specialty roaster opening its second café: logo, cup and bag packaging, menus and a launch kit for social.",
    did:["Logo and identity system","Packaging for 6 blends","Menu boards and signage","Instagram launch kit"], pal:["#F3E7D3","#2A1E17","#FF2D55","#C98B4B"], seed:11},
   {id:"halcyon", title:"Halcyon Run Club launch", cat:"Video editing", client:"Halcyon Run Club", year:"2026",
+   services:["Editing","Color grading","Sound mix"], duration:"3 weeks", featured:true,
    desc:"A 60-second launch film and twelve vertical cutdowns built from two days of dawn footage, graded warm and cut to the club’s own track.",
    did:["Edit and story structure","Color grade","Sound design and mix","12 vertical cutdowns"], pal:["#1B1430","#FF8A5B","#FFD39A","#FF2D55"], seed:24},
   {id:"summit", title:"Orbit Tech Summit", cat:"Broadcasting", client:"Orbit Events", year:"2026",
+   services:["Live streaming","Multi-camera","Live graphics"], duration:"2 days live", featured:true,
    desc:"Two days of conference talks streamed live to YouTube and LinkedIn with four cameras, remote guests and branded on-screen graphics.",
    did:["4-camera production","Remote guest integration","Live graphics package","Same-day highlight reel"], pal:["#0D1426","#3B6CFF","#EDE8F2","#FF2D55"], seed:37},
   {id:"kite", title:"Kite Festival posters", cat:"Graphic design", client:"City Kite Festival", year:"2025",
@@ -50,28 +53,74 @@ const FALLBACK_PROJECTS = [
 ];
 
 const FALLBACK_TEAM = [
-  {name:"Maya Torres", role:"CEO", bio:"Sets direction, signs off on every project, and is who you call when it matters."},
-  {name:"Daniel Okafor", role:"COO", bio:"Runs schedules, budgets and crews so deadlines actually hold."},
-  {name:"Lena Fischer", role:"Designer", bio:"Leads identity, social and print work from first sketch to final files."},
-  {name:"Jonah Reyes", role:"Editor", bio:"Cuts, grades and finishes every frame we deliver."},
-  {name:"Priya Nair", role:"Coder", bio:"Builds our web projects, broadcast graphics and the tools behind them."}
+  {name:"Maya Torres", role:"CEO", bio:"Sets direction, signs off on every project, and is who you call when it matters.",
+   about:"Maya started Gravity after years of producing campaigns for agencies and wanting one crew that could design, edit and broadcast under one roof. She keeps every project tied to what the client actually needs.",
+   years:10, skills:["Creative direction","Client strategy","Production"], experience:[{title:"Founder & CEO", place:"Gravity", period:"2020 – now"},{title:"Producer", place:"Agency work", period:"2015 – 2020"}], socials:{}},
+  {name:"Daniel Okafor", role:"COO", bio:"Runs schedules, budgets and crews so deadlines actually hold.",
+   about:"Daniel plans the work behind the work: crews, kit, timelines and budgets. If a live event needs four cameras by 9 a.m., he’s the reason they’re there.",
+   years:8, skills:["Operations","Event logistics","Budgeting"], experience:[{title:"COO", place:"Gravity", period:"2021 – now"}], socials:{}},
+  {name:"Lena Fischer", role:"Designer", bio:"Leads identity, social and print work from first sketch to final files.",
+   about:"Lena designs identities and campaigns that hold together from a phone screen to a billboard, and builds the templates that keep them consistent.",
+   years:6, skills:["Brand identity","Typography","Packaging","Social design"], experience:[{title:"Lead designer", place:"Gravity", period:"2021 – now"}], socials:{}},
+  {name:"Jonah Reyes", role:"Editor", bio:"Cuts, grades and finishes every frame we deliver.",
+   about:"Jonah edits everything from 15-second reels to documentaries, and handles color and sound so the finished piece feels deliberate.",
+   years:7, skills:["Editing","Color grading","Sound design","Motion graphics"], experience:[{title:"Senior editor", place:"Gravity", period:"2020 – now"}], socials:{}},
+  {name:"Priya Nair", role:"Coder", bio:"Builds our web projects, broadcast graphics and the tools behind them.",
+   about:"Priya writes the code behind our websites, live graphics and internal tools, including the site you’re looking at.",
+   years:5, skills:["Web development","Live graphics","Automation"], experience:[{title:"Developer", place:"Gravity", period:"2022 – now"}], socials:{}}
 ];
 
 
 /* ---------- normalising ---------- */
+const str = (v, max) => typeof v === "string" ? v.trim().slice(0, max) : "";
 const safeImg = u => (typeof u === "string" && /^(data:image\/|https:\/\/|images\/|\.\/)/.test(u)) ? u : null;
 const safeVideo = u => (typeof u === "string" && /^https:\/\//.test(u)) ? u : "";
+const TRANSITIONS = [["fade","Fade"],["slide","Slide"],["zoom","Zoom"],["kenburns","Slow zoom (Ken Burns)"]];
 function normProject(id, d){
   d = d || {};
   return { id: String(id).replace(/[^\w-]/g, ""), title: d.title || "Untitled project", cat: SERVICES.includes(d.cat) ? d.cat : "Graphic design",
     client: d.client || "", year: String(d.year || ""), desc: d.desc || "", did: Array.isArray(d.did) ? d.did : [],
     pal: Array.isArray(d.pal) && d.pal.length === 4 ? d.pal : PALETTES[0], seed: Number(d.seed) || 1,
-    image: safeImg(d.image), video: safeVideo(d.video), order: Number(d.order) || 0 };
+    image: safeImg(d.image), video: safeVideo(d.video), order: Number(d.order) || 0,
+    services: Array.isArray(d.services) ? d.services.map(x => str(x, 50)).filter(Boolean).slice(0, 12) : [],
+    duration: str(d.duration, 60), budget: str(d.budget, 60), featured: !!d.featured,
+    transition: TRANSITIONS.some(t => t[0] === d.transition) ? d.transition : "fade",
+    mediaCount: Number(d.mediaCount) || 0 };
+}
+/* one extra picture or video in a project’s gallery */
+function normMedia(id, d){
+  d = d || {};
+  const type = d.type === "video" ? "video" : "image";
+  return { id: String(id), type, src: type === "image" ? safeImg(d.src) : null, url: type === "video" ? safeVideo(d.url) : "", caption: str(d.caption, 140), order: Number(d.order) || 0 };
+}
+/* clients shown as a logo strip on the home page */
+function normClient(id, d){
+  d = d || {};
+  return { id: String(id), name: str(d.name, 80) || "Client", logo: safeImg(d.logo), url: safeVideo(d.url), order: Number(d.order) || 0 };
+}
+const FALLBACK_CLIENTS = ["Northwind Coffee", "Halcyon Run Club", "Orbit Events", "City Kite Festival", "Velvet Records", "Fernway", "Atlas Fitness", "Lumen University"].map((name, i) => ({ id: "c" + (i + 1), name, logo: null, url: "", order: i }));
+/* social links shown on a member’s profile */
+const SOCIALS = [["instagram","Instagram"],["facebook","Facebook"],["linkedin","LinkedIn"],["youtube","YouTube"],["behance","Behance"],["website","Website"],["email","Email"],["whatsapp","WhatsApp"]];
+function cleanSocials(o){
+  const out = {}; o = o && typeof o === "object" ? o : {};
+  for (const [k] of SOCIALS){
+    const v = str(o[k], 300); if (!v) continue;
+    if (k === "email"){ if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) out[k] = v; }
+    else if (k === "whatsapp"){ let d = v.replace(/\D/g, ""); if (d.length === 11 && d.startsWith("01")) d = "88" + d; if (d.length >= 8) out[k] = d; }
+    else if (/^https:\/\/[^\s]+$/.test(v)) out[k] = v;
+  }
+  return out;
 }
 function normMember(id, d){
   d = d || {};
-  return { id: String(id), name: d.name || "New member", role: d.role || "", bio: d.bio || "", photo: safeImg(d.photo), order: Number(d.order) || 0 };
+  const years = Number(d.years);
+  return { id: String(id), name: d.name || "New member", role: d.role || "", bio: d.bio || "", photo: safeImg(d.photo), order: Number(d.order) || 0,
+    about: str(d.about, 2000), years: years > 0 && years < 80 ? Math.round(years) : 0,
+    skills: Array.isArray(d.skills) ? d.skills.map(x => str(x, 40)).filter(Boolean).slice(0, 16) : [],
+    experience: Array.isArray(d.experience) ? d.experience.map(x => ({ title: str(x && x.title, 80), place: str(x && x.place, 80), period: str(x && x.period, 40) })).filter(x => x.title || x.place).slice(0, 10) : [],
+    socials: cleanSocials(d.socials) };
 }
+function socialHref(k, v){ return k === "email" ? `mailto:${v}` : k === "whatsapp" ? `https://wa.me/${v}` : v; }
 const initials = n => String(n || "?").trim().split(/\s+/).map(w => w[0]).slice(0, 2).join("").toUpperCase();
 
 /* ---------- generated artwork for projects without an image ---------- */
@@ -114,12 +163,19 @@ function art(p, w=400, h=300){
 
 
 function youtubeId(u){ const m = String(u).match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/); return m ? m[1] : null; }
-function media(item, w, h, inDialog = false){
+/* Picture for a project: its uploaded image, else its YouTube thumbnail, else generated artwork.
+   live = true plays a direct .mp4/.webm link as a silent looping preview (used on tiles and reels). */
+const isDirectVideo = u => /\.(mp4|webm)(\?|#|$)/i.test(u || "");
+function cover(item){ if (item.image) return item.image; const yt = item.video && youtubeId(item.video); return yt ? `https://i.ytimg.com/vi/${yt}/hqdefault.jpg` : null; }
+function media(item, w, h, inDialog = false, live = false){
   if (inDialog && item.video){
     const yt = youtubeId(item.video);
-    if (yt) return `<iframe src="https://www.youtube-nocookie.com/embed/${yt}?rel=0" title="${esc(item.title)} video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
-    return `<video src="${esc(item.video)}" controls playsinline${item.image ? ` poster="${esc(item.image)}"` : ""}></video>`;
+    if (yt) return `<iframe src="https://www.youtube-nocookie.com/embed/${yt}?rel=0&autoplay=1" title="${esc(item.title)} video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+    return `<video src="${esc(item.video)}" controls autoplay playsinline${item.image ? ` poster="${esc(item.image)}"` : ""}></video>`;
   }
-  if (item.image) return `<img src="${esc(item.image)}" alt="" loading="lazy">`;
+  const c = cover(item);
+  if (live && isDirectVideo(item.video) && !reduceMotion)
+    return `<video data-src="${esc(item.video)}" muted loop playsinline preload="none"${c ? ` poster="${esc(c)}"` : ""}></video>`;
+  if (c) return `<img src="${esc(c)}" alt="" loading="lazy" decoding="async">`;
   return art(item, w, h);
 }

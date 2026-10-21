@@ -8,5 +8,8 @@ window.GRAVITY_CONFIG = {
     appId: "1:600784508217:web:1b07786a508d03833dc4e8"
   },
   formEndpoint: "https://formspree.io/f/myekqkrz",
-  contactEmail: "gravitystudio.pre@gmail.com"
+  contactEmail: "gravitystudio.pre@gmail.com",
+
+  /* Number for the floating “Chat with us” WhatsApp button (country code, no +). Leave empty to hide it. */
+  whatsapp: "8801736981194"
 };
